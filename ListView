@@ -1,0 +1,82 @@
+                                                                          XML
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
+
+
+
+                                                                          MainActivity.java
+package com.nexis.myapplication;
+
+import static android.widget.Toast.LENGTH_LONG;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+    //private String[] sehirler={"Ankara","İstanbul","İzmir","Eskişehir","Niğde","Artvin"};
+    private ListView listView;
+    private ArrayList<Ogrenci> ogrenciler=new ArrayList<>();
+    private ArrayAdapter<Ogrenci> adaptor;
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        listView=findViewById(R.id.listView);
+        ogrenciler.add(new Ogrenci(1,"Ahmet Yılmaz","22012345","BİLP"));
+        ogrenciler.add(new Ogrenci(2,"Esra Demir","22028077","BİLP"));
+        ogrenciler.add(new Ogrenci(3,"Mehmet Kaya","22033685","BİLP"));
+        ogrenciler.add(new Ogrenci(1,"Burak Asuman","21534687","BİLP"));
+        adaptor=new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1,ogrenciler);
+        //NASIL BİR ŞABLONA;HANGİ(DİZİ YADA ARRAYLİST)BİLGİLERİ
+        listView.setAdapter(adaptor);
+    }
+
+}
+                                                                
+                                                                
+                                                                   Ogrenci.java
+package com.nexis.myapplication;
+
+public class Ogrenci {
+    private int sira;
+    private String adSoyad,numara,bolum;
+
+    public Ogrenci(int sira, String adSoyad, String numara, String bolum) {
+        this.sira = sira;
+        this.adSoyad = adSoyad;
+        this.numara = numara;
+        this.bolum = bolum;
+    }
+
+    @Override
+    public String toString() {
+        return sira+"-"+adSoyad+" "+numara+" "+bolum;
+    }
+}
