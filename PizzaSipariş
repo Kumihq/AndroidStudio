@@ -1,0 +1,192 @@
+                                                                             XML
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/resim"
+        android:src="@drawable/pizza"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:id="@+id/evet1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/resim"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+
+            android:background="#f00"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:textColor="@color/white"
+                android:id="@+id/kucukBoy"
+                android:text="Küçük Boy (20₺)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:textColor="@color/white"
+                android:id="@+id/ortaBoy"
+                android:text="Orta Boy (25₺)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:textColor="@color/white"
+                android:id="@+id/buyukBoy"
+                android:text="Büyük Boy (30₺)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RadioGroup>
+        <RadioGroup
+            android:background="#f00"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:textColor="@color/white"
+                android:id="@+id/inceHamur"
+                android:text="İnce Hamur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:textColor="@color/white"
+                android:id="@+id/kalinHamur"
+                android:text="Kalın Hamur (+2₺)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:background="#00f"
+        android:orientation="vertical"
+        android:layout_toEndOf="@id/evet1"
+        android:layout_marginLeft="100dp"
+        android:layout_below="@+id/resim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/sucukCB"
+            android:text="Sucuk (5₺)"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <CheckBox
+            android:id="@+id/soganCB"
+            android:text="Soğan (3₺)"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <CheckBox
+            android:id="@+id/ybiberCB"
+            android:text="Yeşil Biber (2₺)"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <CheckBox
+            android:id="@+id/kbiberCB"
+            android:text="Kırmızı Biber (2₺)"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <CheckBox
+            android:id="@+id/mantarCB"
+            android:text="Mantar (3₺)"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/siparisB"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Sipariş Ver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
+
+
+                                                          MainActivity.java
+package com.nexis.myapplication;
+
+import static android.widget.Toast.LENGTH_LONG;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button siparisB;
+    private CheckBox sucukCB,soganCB,ybiberCB,kbiberCB,mantarCB;
+    private RadioButton inceHamur,kalinHamur,kucukBoy,ortaBoy,buyukBoy;
+    private int toplam=0;
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        siparisB=findViewById(R.id.siparisB);
+        sucukCB=findViewById(R.id.sucukCB);
+        soganCB=findViewById(R.id.soganCB);
+        ybiberCB=findViewById(R.id.ybiberCB);
+        kbiberCB=findViewById(R.id.kbiberCB);
+        mantarCB=findViewById(R.id.mantarCB);
+        inceHamur=findViewById(R.id.inceHamur);
+        kalinHamur=findViewById(R.id.kalinHamur);
+        kucukBoy=findViewById(R.id.kucukBoy);
+        ortaBoy=findViewById(R.id.ortaBoy);
+        buyukBoy=findViewById(R.id.buyukBoy);
+
+
+        siparisB.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(sucukCB.isChecked())
+            toplam+=5;
+        if(soganCB.isChecked())
+            toplam+=3;
+        if(ybiberCB.isChecked())
+            toplam+=2;
+        if(kbiberCB.isChecked())
+            toplam+=2;
+        if(mantarCB.isChecked())
+            toplam+=3;
+        else if(kucukBoy.isChecked())
+            toplam+=20;
+        else if(ortaBoy.isChecked())
+            toplam+=25;
+        else if(buyukBoy.isChecked())
+            toplam+=30;
+
+
+        if (kalinHamur.isChecked())
+            toplam+=2;
+
+        Toast.makeText(getApplicationContext(), "Toplam fiyat:"+toplam,LENGTH_LONG).show();
+    }
+}
